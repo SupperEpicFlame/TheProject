@@ -11,7 +11,9 @@ export const GetUById = async (id) => {
     return response.data;
 }
 export const addReview = async (U_id, user, comment, rating) => {
-    const response = await axios.post(`${API_URL}/R`, { R:U_id, user, comment, rating });
+    const response = await axios.post(`${API_URL}/R`, { U_id, user, comment, rating });
+    console.log("111", response.data);
+    
     return response.data;
 }
 export const GetReviewById = async (id) => {

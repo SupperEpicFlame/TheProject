@@ -18,10 +18,11 @@ export default function Page({ route }) {
     
     GetReviewById(universityId)
       .then((data) => {
-        setRData(data);
+        setRating(data);
+        setReviews(data);
         setLoading(false);
-        console.log(data);
-
+        console.log("oooo",data);
+        
       })
       .catch((error) => {
         console.error('Error fetching data:', error);
@@ -29,6 +30,8 @@ export default function Page({ route }) {
   }, []);
 
   const handleAddReview = () => {
+    console.log("zzzzz");
+    if (!newUser || !newReview ) {
     addReview(universityId,newReview, newUser, newRaiting)
       .then(() => {
         setReviews([...reviews, { U_id: universityId, user: newUser, comment: newReview, rating: newRaiting },]);
@@ -39,6 +42,10 @@ export default function Page({ route }) {
         setNewUser('');
       })
       .catch(error => Alert.alert('Error', error.message));
+    }
+    else {
+      Alert.alert('Error', 'Please fill in all fields');
+    }
   };
 
   const [reviews, setReviews] = useState([]); // Stores reviews
@@ -139,9 +146,9 @@ export default function Page({ route }) {
             keyExtractor={(item) => item.id}
             renderItem={({ item }) => (
               <View style={styles.reviewItem}>
-                <Text style={styles.reviewName}>{item.displayName}</Text>
+                <Text style={styles.reviewName}>{item.user}</Text>
                 <View style={styles.reviewRating}>{renderStarsForReviewDisplay(item.rating)}</View>
-                <Text style={styles.reviewText}>{item.reviewText}</Text>
+                <Text style={styles.reviewText}>{item.comment}</Text>
               </View>
             )}
             scrollEnabled={false} // Prevent nested scrolling within ScrollView
