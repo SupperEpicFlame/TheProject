@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Multi-Page App</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav>
+        <!-- Navigation links -->
+        <ul id="pageLinks">
+            <li><button onclick="switchPage(1)">Page 1</button></li>
+            <li><button onclick="switchPage(2)">Page 2</button></li>
+            <!-- Add buttons for other pages up to 10 -->
+        </ul>
+    </nav>
+    <main>
+        <div id="content">
+            <h2>Page 1</h2>
+            <div id="commentsSection">
+                <textarea id="commentInput" placeholder="Write a comment..."></textarea>
+                <button onclick="addComment()">Submit</button>
+                <ul id="commentsList"></ul>
+            </div>
+        </div>
+    </main>
+    <script src="app.js"></script>
+</body>
+</html>
