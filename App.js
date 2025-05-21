@@ -11,16 +11,16 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator initialRouteName="MainPage">
         {/* Main Page */}
-        <Stack.Screen 
-          name="MainPage" 
-          component={MainPage} 
-          options={{ title: 'Main Page' }} 
+        <Stack.Screen
+          name="MainPage"
+          component={MainPage}
+          options={{ title: 'Main Page' }}
         />
         {/* Page Component */}
-        <Stack.Screen 
-          name="Page" 
-          component={Page} 
-          options={{ title: 'University Details' }} 
+        <Stack.Screen
+          name="Page"
+          component={Page}
+          options={{ title: 'University Details' }}
         />
       </Stack.Navigator>
     </NavigationContainer>

@@ -8,19 +8,19 @@ export default function Page({ route }) {
   const { university } = route.params;
   const universityId = university.U_id;
   const [loading, setLoading] = React.useState(true);
-  const [rData, setRData] = React.useState([]); // Stores review data
   const [newReview, setNewReview] = useState(''); // Input for new review
   const [newUser, setNewUser] = useState(''); // Input for new user name
   const [newRaiting, setNewRaiting] = useState(''); // Input for new rating
 
   useEffect(() => {
     setLoading(true);
-    
+
     GetReviewById(universityId)
       .then((data) => {
-        setRData(data);
+        setRating(data);
+        setReviews(data);
         setLoading(false);
-        console.log(data);
+        console.log("GetData", data);
 
       })
       .catch((error) => {
@@ -29,34 +29,28 @@ export default function Page({ route }) {
   }, []);
 
   const handleAddReview = () => {
-    addReview(universityId,newReview, newUser, newRaiting)
-      .then(() => {
-        setReviews([...reviews, { U_id: universityId, user: newUser, comment: newReview, rating: newRaiting },]);
-        console.log(reviews);
-        
-        setNewRaiting(0);
-        setNewReview('');
-        setNewUser('');
-      })
-      .catch(error => Alert.alert('Error', error.message));
+    if (newUser !== '') {
+      addReview(universityId, newUser, newReview, newRaiting)
+        .then(() => {
+          setReviews([...reviews, { U_id: universityId, user: newUser, comment: newReview, rating: newRaiting },]);
+          console.log(reviews);
+
+          setNewRaiting(0);
+          setNewReview('');
+          setNewUser('');
+        })
+        .catch(error => Alert.alert('Error', error.message));
+    }
+    else {
+      console.log("Please enter your name");
+
+    }
   };
 
   const [reviews, setReviews] = useState([]); // Stores reviews
   const [displayName, setDisplayName] = useState(''); // Input for display name
   const [rating, setRating] = useState(0); // Star rating input
   const [reviewText, setReviewText] = useState(''); // Input for review text
-
-  const ddReview = () => {
-    if (displayName && reviewText) {
-      setReviews([
-        ...reviews,
-        { displayName, rating, reviewText, id: Date.now().toString() },
-      ]);
-      setDisplayName('');
-      setRating(0);
-      setReviewText('');
-    }
-  };
 
   const renderStarsForRatingInput = () => {
     const stars = [];
@@ -136,16 +130,17 @@ export default function Page({ route }) {
         <View style={styles.reviewDisplay}>
           <FlatList
             data={reviews}
-            keyExtractor={(item) => item.id}
+            keyExtractor={(item) => item.R_id}
             renderItem={({ item }) => (
               <View style={styles.reviewItem}>
-                <Text style={styles.reviewName}>{item.displayName}</Text>
+                <Text style={styles.reviewName}>{item.user}</Text>
                 <View style={styles.reviewRating}>{renderStarsForReviewDisplay(item.rating)}</View>
-                <Text style={styles.reviewText}>{item.reviewText}</Text>
+                <Text style={styles.reviewText}>{item.comment}</Text>
               </View>
             )}
-            scrollEnabled={false} // Prevent nested scrolling within ScrollView
+            scrollEnabled={false}
           />
+
         </View>
       </ScrollView>
     </View>
