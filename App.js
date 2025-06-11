@@ -14,13 +14,13 @@ export default function App() {
         <Stack.Screen
           name="MainPage"
           component={MainPage}
-          options={{ title: 'Main Page' }}
+          options={{ title: 'หน้าหลัก' }}
         />
         {/* Page Component */}
         <Stack.Screen
           name="Page"
           component={Page}
-          options={{ title: 'University Details' }}
+          options={{ title: 'ข้อมูลมหาวิทยาลัย' }}
         />
       </Stack.Navigator>
     </NavigationContainer>

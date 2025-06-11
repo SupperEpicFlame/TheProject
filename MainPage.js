@@ -24,7 +24,7 @@ export default function MainPage({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Welcome to the App</Text>
+      <Text style={styles.title}>เลือกมหาวิทยาลัย</Text>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         {universityData.map((university, index) => (
           <TouchableOpacity

@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const API_URL = "http://192.168.11.157:5000/api"; // Replace with your actual API URL
+// const API_URL = "http://192.168.11.157:5000/api"; 
+const API_URL = "https://ninja.neuatech.com/api"; // Production URL
 
 export const GetU = async () => {
     const response = await axios.get(`${API_URL}/U`);
@@ -19,11 +20,13 @@ export const GetReviewById = async (id) => {
     const response = await axios.get(`${API_URL}/R/${id}`);
     return response.data;
 }
-export const editReview = async (id) => {
-    const response = await axios.put(`${API_URL}/E/${id}`);
+export const editReview = async (id, user, comment, rating) => {
+    console.log(`Editing review for ID: ${id}, User: ${user}, Comment: ${comment}, Rating: ${rating}`);
+    
+    const response = await axios.get(`${API_URL}/R/E/${id}`, { user, comment, rating });
     return response.data;
 }
 export const deleteReview = async (id) => {
-    const response = await axios.delete(`${API_URL}/D/${id}`);
+    const response = await axios.delete(`${API_URL}/R/D/${id}`);
     return response.data;
 }
